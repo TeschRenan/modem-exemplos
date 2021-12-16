@@ -11,12 +11,12 @@ uart_port_t modem::uart_num;
 const char* modem::TAG = "[MODEM DRIVER]";
 
 /**
- * @brief Inicia a UART para o funcionamento .
- * @param [tx]: Pino TX da UART.
- * @param [rx]: Pino RX da UART.
- * @param [uart_num]: Numero da UART a ser usada na comunicação EX: UART_NUM_1.
- * @param [baud_rate]: Baud_rate de comunicação, default 115200.
- * 
+ * @brief Starts the UART for operation.
+ * @param [tx]: UART TX pin.
+ * @param [rx]: UART RX pin.
+ * @param [uart_num]: UART number to be used in communication EX: UART_NUM_1.
+ * @param [baud_rate]: Communication baud_rate, default 115200.
+ *
 **/
 void modem::init(gpio_num_t tx,gpio_num_t rx, uart_port_t uart_num, int baud_rate = 115200)
 {
@@ -59,20 +59,20 @@ void modem::infoCommand(char *cmd, int cmdSize, char *info)
 }
 
 /**
- * 
- * @brief Envia um comando AT com verificação de mensagem de retorno e timeout.
- * 
- * @param [cmd]: Comando a ser enviado.
- * @param [resp]: Opção 0 de Resposta aguardada.
- * @param [resp1]: Opção 1 de Resposta aguardada.
- * @param [cmdSize]: Tamanho da string de comando.
- * @param [timeout]: Tempo maximo a ser esperado pela resposta
- * @param [response]: String de resposta
- * @param [size]: Tamanho do buffer de verificação.
- * 
- * @return [0]: Timeout.
- * @return [1]: Sucesso resp.
-*  @return [2]: Sucesso resp1.
+*
+* @brief Sends an AT command with checkback and timeout message verification.
+*
+* @param [cmd]: Command to be sent.
+* @param [resp]: Option 0 of Reply awaited.
+* @param [resp1]: Reply 1 option awaited.
+* @param [cmdSize]: Size of the command string.
+* @param [timeout]: Maximum time to wait for response
+* @param [response]: Response String
+* @param [size]: Check buffer size.
+*
+* @return[0]: Timeout.
+* @return [1]: Success resp.
+* @return [2]: Success resp1.
 **/
 uint8_t modem::atCmdWaitResponse(char * cmd, char *resp, char * resp1, int cmdSize, int timeout, char **response, int size)
 {
@@ -184,14 +184,14 @@ uint8_t modem::atCmdWaitResponse(char * cmd, char *resp, char * resp1, int cmdSi
 }
 
 /**
- * @brief Verifica resposta se condiz com esperado.
- * 
- * @param [resp]: String a ser validada.
- * @param [timeout]: Tempo maximo a ser esperado pela resposta
- * 
- * @return [0]: Timeout out ou retorno divergente.
- * @return [1]: Sucesso resp.
-**/
+ * @brief Checks response if it matches expected.
+ *
+ * @param [resp]: String to validate.
+ * @param [timeout]: Maximum time to wait for response
+ *
+ * @return [0]: Timeout out or diverging return.
+ * @return [1]: Success resp.
+**/ 
 uint8_t modem::verifyResponse(char* resp, int timeout){
 
 	char sresp[256] = {'\0'};
@@ -256,17 +256,17 @@ uint8_t modem::verifyResponse(char* resp, int timeout){
 
 }
 /**
- * 
- * @brief Verifica resposta se condiz com esperado retornando seu valor para resp.
- * 
- * @param [*resp]: String de resposta 
- * @param [Key]: Resposta a ser validada.
- * @param [lenght]: Tamanho maximo da resposta
- * 
- * @param [timeout]: Tempo maximo a ser esperado pela resposta
+ *
+ * @brief Checks response if it matches expected by returning its value to resp.
+ *
+ * @param [*resp]: Response String
+ * @param [Key]: Response to validate.
+ * @param [lenght]: Maximum response size
+ *
+ * @param [timeout]: Maximum time to wait for response
  * @return [0]: Timeout out .
- * @return [1]: Sucesso resp.
- * 
+ * @return [1]: Success resp.
+ *
 **/
 uint8_t modem::getResponse(char *resp,char *key, int lenght,  int timeout){
 
@@ -330,12 +330,12 @@ uint8_t modem::getResponse(char *resp,char *key, int lenght,  int timeout){
 }
 
 /**
- * @brief Envia um byte pela UART.
- * 
- * @param [value]: Byte a ser enviado.
- * @param [timeout]: Tempo maximo a ser esperado pela resposta
- * 
- * @return [size]: tamanho do byte enviado.
+ * @brief Send a byte via UART.
+ *
+ * @param [value]: Byte to be sent.
+ * @param [timeout]: Maximum time to wait for response
+ *
+ * @return [size]: size of the sent byte.
 **/
 
 int8_t modem::write(uint8_t value)
@@ -349,12 +349,12 @@ int8_t modem::write(uint8_t value)
 }
 
 /**
- * @brief Envia uma string pela UART.
- * 
- * @param [value]: String a ser enviado.
- * @param [timeout]: Tempo maximo a ser esperado pela resposta
- * 
- * @return [size]: tamanho em bytes enviado.
+ * @brief Sends a string via UART.
+ *
+ * @param [value]: String to be sent.
+ * @param [timeout]: Maximum time to wait for response
+ *
+ * @return [size]: size in bytes sent.
 **/
 int32_t modem::write(char* value)
 {
