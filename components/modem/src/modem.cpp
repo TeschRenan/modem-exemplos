@@ -343,7 +343,7 @@ int8_t modem::write(uint8_t value)
 	char data[] = { value };
     int size = uart_write_bytes(uart_num, data, 1);
 	
-	ESP_LOGI(TAG, "Wrote one byte %s", data);
+	infoCommand(data, 1, "WRITE CHAR:");
 
     return size;
 }
@@ -358,12 +358,16 @@ int8_t modem::write(uint8_t value)
 **/
 int32_t modem::write(char* value)
 {
+	// ** Send command to Modem
+	vTaskDelay(100 / portTICK_PERIOD_MS);
+	uart_flush(uart_num);
+
 	int len = strlen(value);
-    int size = uart_write_bytes(uart_num, value, len);
 	
-	ESP_LOGI(TAG, "Wrote string: %s, byte %i", value, size);
+	infoCommand(value, len, "WRITE STRING:");
+
+    int size = uart_write_bytes(uart_num, (const char*)value, len);
+	uart_wait_tx_done(uart_num, 100 / portTICK_RATE_MS);
 
     return size;
 }
-
-
