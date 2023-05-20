@@ -1,4 +1,4 @@
-# modem 
-Biblioteca para a utilização de modem com comandos AT para ESP-IDF.
+# modem exemplos
+Exmplos para uso da biblioteca com a utilização de modem com comandos ATs para ESP-IDF.
 
 
