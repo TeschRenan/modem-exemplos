@@ -1,3 +1,31 @@
+/**
+	@file modem.cpp
+	@author Renan Tesch
+
+	MIT License
+
+	Copyright (c) Copyright 2023 Renan Tesch
+	GitHub https://github.com/TeschRenan
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+*/
+
 #include "modem.h"
 
 modem::modem(){
@@ -331,11 +359,7 @@ uint8_t modem::getResponse(char *resp,char *key, int lenght,  int timeout){
 
 /**
  * @brief Send a byte via UART.
- *
  * @param [value]: Byte to be sent.
- * @param [timeout]: Maximum time to wait for response
- *
- * @return [size]: size of the sent byte.
 **/
 
 int8_t modem::write(uint8_t value)
@@ -350,11 +374,7 @@ int8_t modem::write(uint8_t value)
 
 /**
  * @brief Sends a string via UART.
- *
  * @param [value]: String to be sent.
- * @param [timeout]: Maximum time to wait for response
- *
- * @return [size]: size in bytes sent.
 **/
 int32_t modem::write(char* value)
 {
@@ -371,3 +391,13 @@ int32_t modem::write(char* value)
 
     return size;
 }
+
+/**
+ * @brief Flush UART.
+**/
+void modem::flush()
+{
+	vTaskDelay(100 / portTICK_PERIOD_MS);
+	uart_flush(uart_num);
+}
+
